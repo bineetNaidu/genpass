@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const clipboardy = require('clipboardy');
 const pkgJson = require('./package.json');
 const { createPassword } = require('./utils/createPassword');
+const { savePassword } = require('./utils/savePassword');
 const log = console.log;
 
 program.version(pkgJson.version).description('A Password Generator');
@@ -18,6 +19,8 @@ const { length, numbers, symbols, save } = program.opts();
 
 const generatedPassword = createPassword(length, numbers, symbols);
 clipboardy.writeSync(generatedPassword);
+
+if (save) savePassword(generatedPassword);
 
 log(
   chalk.blue('- 🎉 Your Generated Password: ') + chalk.bold(generatedPassword)
